@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101827">
+  <title>For Puranpoli — from Modak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#101827; --ink2:#1b2940; --cream:#f5eddf; --soft:#d9d1c5;
+      --gold:#e8bd83; --line:rgba(232,189,131,.28);
+      --serif:"Playfair Display",Georgia,serif;
+      --sans:"DM Sans",Arial,sans-serif;
+      --mr:"Noto Sans Devanagari","Mukta",sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--ink);scroll-behavior:smooth}
+    body{margin:0;min-height:100svh;color:var(--cream);font-family:var(--sans);
+      background:
+        radial-gradient(ellipse at 75% 8%,rgba(74,100,145,.35),transparent 42%),
+        radial-gradient(ellipse at 10% 90%,rgba(172,116,66,.15),transparent 36%),
+        linear-gradient(155deg,#111a2c 0%,#1b2940 55%,#111827 100%);
+      overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.15;
+      background-image:radial-gradient(rgba(255,255,255,.7) .55px,transparent .8px);background-size:24px 24px}
+    .grain{position:fixed;inset:0;pointer-events:none;opacity:.055;z-index:5;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E")}
+    .lights{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+    .light{position:absolute;bottom:-12px;width:3px;height:3px;border-radius:50%;background:#f4d5a6;
+      box-shadow:0 0 12px 2px rgba(244,213,166,.42);opacity:0;animation:rise var(--t) linear infinite;animation-delay:var(--d)}
+    @keyframes rise{10%{opacity:.55}85%{opacity:.35}100%{transform:translate(var(--x),-105vh) scale(1.8);opacity:0}}
+    .screen{display:none;min-height:100svh;position:relative;z-index:1;padding:28px 18px max(28px,env(safe-area-inset-bottom))}
+    .screen.show{display:flex;align-items:center;justify-content:center;animation:screenIn .6s ease both}
+    @keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    .shell{width:min(100%,680px);margin:auto}
+    .topline{display:flex;align-items:center;justify-content:space-between;color:#b9bdc8;
+      text-transform:uppercase;letter-spacing:.2em;font-size:.62rem;font-weight:700;margin-bottom:23px}
+    .topline .dot{color:var(--gold);font-size:1rem;letter-spacing:0}
+    .hero{text-align:center}
+    .kicker{margin:0 0 10px;color:var(--gold);font-size:.68rem;letter-spacing:.27em;text-transform:uppercase;font-weight:700}
+    h1,h2{font-family:var(--serif);font-weight:500}
+    h1{font-size:clamp(2.5rem,10vw,4.6rem);line-height:.98;letter-spacing:-.045em;margin:0}
+    h1 em{color:var(--gold);font-weight:500}
+    .deck{color:#c5c6cc;font:italic clamp(.95rem,3.7vw,1.08rem)/1.6 var(--serif);margin:14px auto 25px;max-width:390px}
+    .photo-wrap{width:min(100%,410px);margin:0 auto;position:relative;padding:9px;border:1px solid rgba(232,189,131,.45);
+      border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.025));
+      box-shadow:0 26px 75px rgba(0,0,0,.42),0 0 38px rgba(232,189,131,.08);
+      animation:photoIn .9s .12s cubic-bezier(.2,.8,.2,1) both}
+    @keyframes photoIn{from{opacity:0;transform:translateY(18px) scale(.965)}to{opacity:1;transform:none}}
+    .photo-wrap:after{content:"";position:absolute;inset:9px;border-radius:15px;pointer-events:none;
+      box-shadow:inset 0 0 45px rgba(7,12,22,.12)}
+    .photo-wrap img{display:block;width:100%;height:min(57svh,520px);object-fit:cover;object-position:center 42%;border-radius:15px;background:#27344d}
+    .photo-note{margin:10px 2px 0;text-align:left;display:flex;justify-content:space-between;gap:10px;
+      color:#c6c1b9;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase}
+    .photo-note span:last-child{color:var(--gold)}
+    .notes{max-width:490px;margin:25px auto 0;text-align:left;display:grid;gap:0}
+    .note{display:grid;grid-template-columns:28px 1fr;gap:9px;padding:12px 2px;border-bottom:1px solid rgba(255,255,255,.09);
+      opacity:0;transform:translateY(9px);animation:noteIn .55s ease forwards;animation-delay:calc(.2s + var(--n)*.2s)}
+    @keyframes noteIn{to{opacity:1;transform:none}}
+    .note .num{font:italic .9rem var(--serif);color:var(--gold);padding-top:1px}
+    .note p{margin:0;color:#eee6da;font-size:.9rem;line-height:1.55}
+    .note strong{color:#f2c98f;font-weight:500}
+    .after-note{font:italic .95rem/1.6 var(--serif);color:#c8c4c0;text-align:center;margin:19px auto 0;max-width:440px}
+    .after-note b{color:var(--gold);font-weight:500}
+    .actions{display:flex;justify-content:center;gap:10px;margin:25px 0 0}
+    button{border:1px solid transparent;border-radius:999px;padding:13px 24px;min-width:142px;
+      font:700 .83rem var(--sans);letter-spacing:.03em;cursor:pointer;transition:transform .2s,background .2s;
+      -webkit-tap-highlight-color:transparent}
+    button:active{transform:scale(.97)}
+    button:focus-visible{outline:2px solid white;outline-offset:4px}
+    .primary{color:#1a2230;background:linear-gradient(135deg,#f0d4ad,#dba96e);box-shadow:0 8px 25px rgba(220,169,110,.2)}
+    .quiet{color:var(--cream);background:rgba(255,255,255,.055);border-color:rgba(245,237,223,.24)}
+    .page-two{width:min(100%,720px)}
+    .page-two h2{text-align:center;font-size:clamp(2.2rem,8vw,3.7rem);line-height:1.04;margin:0 auto 9px;max-width:580px}
+    .page-two h2 em{color:var(--gold);font-weight:500}
+    .sub{text-align:center;color:#bfc1c8;font-size:.83rem;margin:0 0 24px}
+    .poem-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .poem{border:1px solid var(--line);border-radius:18px;padding:19px 16px 20px;
+      background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));}
+    .poem h3{margin:0 0 13px;color:var(--gold);font-size:.63rem;letter-spacing:.22em;text-transform:uppercase}
+    .lines{margin:0;font:500 clamp(.88rem,2.7vw,1rem)/1.85 var(--serif);color:#f2e9dc}
+    .lines span{display:block;opacity:0;transform:translateY(6px);animation:noteIn .5s ease forwards;animation-delay:calc(.15s + var(--n)*.1s)}
+    .lines.marathi{font-family:var(--mr);font-size:clamp(.84rem,2.6vw,.95rem);line-height:2}
+    .aside-lines{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:17px 0}
+    .aside-lines span{padding:8px 12px;border:1px solid rgba(232,189,131,.24);border-radius:99px;
+      color:#ead8bf;background:rgba(232,189,131,.06);font-size:.74rem}
+    .rizz{max-width:600px;margin:18px auto 0;text-align:center;padding:19px 17px;border-radius:17px;
+      border:1px solid rgba(232,189,131,.4);background:linear-gradient(120deg,rgba(232,189,131,.12),rgba(255,255,255,.025))}
+    .rizz small{color:var(--gold);text-transform:uppercase;letter-spacing:.23em;font-size:.62rem;font-weight:700}
+    .rizz p{font:italic 1.05rem/1.6 var(--serif);margin:9px 0 0}
+    .rizz .mr{font:500 .9rem/1.9 var(--mr);color:#e5d8c7;margin-top:6px}
+    .signature{text-align:center;color:#bfc1c8;font-size:.76rem;margin:20px 0 0}
+    .signature span{font:italic 1.15rem var(--serif);color:var(--gold)}
+    @media(max-width:600px){
+      .screen{padding-top:24px}
+      .topline{margin-bottom:18px}
+      .photo-wrap{width:min(100%,370px)}
+      .photo-wrap img{height:min(48svh,470px)}
+      .notes{margin-top:19px}
+      .note{padding:10px 1px}
+      .note p{font-size:.86rem}
+      .poem-grid{grid-template-columns:1fr}
+      .poem{padding:17px 16px}
+      .lines{font-size:.98rem}
+      .lines.marathi{font-size:.91rem}
+      .page-two .poem-grid .poem:first-child .lines{line-height:1.75}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+      .light{display:none}.note,.lines span,.photo-wrap{opacity:1;transform:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="lights" id="lights" aria-hidden="true"></div>
+
+  <main>
+    <section class="screen show" id="one" aria-label="A note for Puranpoli">
+      <div class="shell">
+        <div class="topline"><span>just between us</span><span class="dot">✳</span><span>01 / 02</span></div>
+        <header class="hero">
+          <p class="kicker">a little pause in your day</p>
+          <h1>For <em>Puranpoli.</em></h1>
+          <p class="deck">I noticed a few things in this picture.<br>Thought I'd tell you.</p>
+        </header>
+
+        <figure class="photo-wrap">
+          <!-- Keep the photo beside this HTML file and name it exactly: her-photo.jpg -->
+          <img src="her-photo.jpg" alt="Puranpoli sitting at a stone lookout at dusk, with a wide valley and distant lights behind her">
+          <figcaption class="photo-note"><span>one lovely evening</span><span>somewhere up there ✦</span></figcaption>
+        </figure>
+
+        <div class="notes">
+          <div class="note" style="--n:0"><span class="num">01</span><p>The <strong>navy shirt and cream trousers</strong> are such a good combination. Understated, but definitely not unnoticed.</p></div>
+          <div class="note" style="--n:1"><span class="num">02</span><p>Your curls, especially around your forehead, have that perfectly unbothered look. Please don't let them become too well-behaved.</p></div>
+          <div class="note" style="--n:2"><span class="num">03</span><p>That little almost-smile feels very you. And the eye contact with the camera? Quiet confidence. I caught that.</p></div>
+          <div class="note" style="--n:3"><span class="num">04</span><p>Meanwhile, the whole valley is sparkling behind you and you're sitting there like it's your regular evening view. <strong>Fair enough.</strong></p></div>
+        </div>
+
+        <p class="after-note">Also, I still maintain that your <b>voice</b> and your music taste deserve their own appreciation post. This one is just for the outfit and the view.</p>
+        <div class="actions"><button class="primary" id="next">There's more ✨</button></div>
+      </div>
+    </section>
+
+    <section class="screen" id="two" aria-label="Poem for Puranpoli">
+      <div class="shell page-two">
+        <div class="topline"><span>a few lines, just for you</span><span class="dot">✳</span><span>02 / 02</span></div>
+        <p class="kicker" style="text-align:center">the photo, in a few words</p>
+        <h2>The sky had its own <em>story.</em><br>You became the favourite part.</h2>
+        <p class="sub">A little poem in two languages.</p>
+
+        <div class="poem-grid">
+          <article class="poem">
+            <h3>English</h3>
+            <p class="lines">
+              <span style="--n:0">The evening folded into blue,</span>
+              <span style="--n:1">And distant lights came shining through.</span>
+              <span style="--n:2">You found your place beside the stone,</span>
+              <span style="--n:3">Looking perfectly at home.</span>
+              <span style="--n:4">A curl out of place, a smile held small,</span>
+              <span style="--n:5">No need to pose or try at all.</span>
+              <span style="--n:6">The hills were lovely, that's all true,</span>
+              <span style="--n:7">But somehow, I kept looking at you.</span>
+            </p>
+          </article>
+          <article class="poem">
+            <h3>मराठी</h3>
+            <p class="lines marathi" lang="mr">
+              <span style="--n:0">निळ्या आभाळी संध्याकाळ खुलली,</span>
+              <span style="--n:1">दूरच्या दिव्यांनी दरी सजली.</span>
+              <span style="--n:2">दगडी कठड्यावर तू निवांत बसलीस,</span>
+              <span style="--n:3">हळूच हसून क्षणात रंग भरलीस.</span>
+              <span style="--n:4">कुरळ्या केसांची बट जरा वाऱ्यावर डोलली,</span>
+              <span style="--n:5">तुझ्या त्या अदा मनात अलगद राहिली.</span>
+              <span style="--n:6">डोंगर, दिवे, आभाळ सारं सुंदर होतं,</span>
+              <span style="--n:7">पण लक्ष मात्र तुझ्याकडेच जात होतं.</span>
+            </p>
+          </article>
+        </div>
+
+        <div class="aside-lines">
+          <span>निवांत क्षण. सुंदर तू.</span>
+          <span>That almost-smile though.</span>
+          <span>बाकी सगळं फक्त background.</span>
+        </div>
+
+        <div class="rizz">
+          <small>and one tiny observation</small>
+          <p>“I was going to compliment the view, but apparently I got distracted.”</p>
+          <p class="mr" lang="mr">“दृश्याचं कौतुक करायचं ठरवलं होतं… पण लक्ष दुसरीकडेच गेलं.”</p>
+        </div>
+
+        <p class="signature">A little thought from <span>Modak.</span></p>
+        <div class="actions"><button class="quiet" id="back">← Back to the photo</button></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const one = document.getElementById("one");
+      const two = document.getElementById("two");
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function switchTo(show, hide) {
+        hide.classList.remove("show");
+        void show.offsetWidth;
+        show.classList.add("show");
+        window.scrollTo({top: 0, behavior: reduced ? "auto" : "smooth"});
+      }
+      document.getElementById("next").addEventListener("click", () => switchTo(two, one));
+      document.getElementById("back").addEventListener("click", () => switchTo(one, two));
+
+      if (!reduced) {
+        const holder = document.getElementById("lights");
+        for (let i = 0; i < 20; i++) {
+          const dot = document.createElement("i");
+          dot.className = "light";
+          dot.style.left = `${Math.random() * 100}%`;
+          dot.style.setProperty("--t", `${12 + Math.random() * 12}s`);
+          dot.style.setProperty("--d", `${-Math.random() * 22}s`);
+          dot.style.setProperty("--x", `${Math.round(Math.random() * 80 - 40)}px`);
+          holder.appendChild(dot);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
